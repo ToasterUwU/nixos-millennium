@@ -22,7 +22,7 @@ in
         example = pkgs.milleniumThemes.metro;
       };
 
-    config =
+    millennium-config =
       with lib;
       mkOption {
         type = types.submodule {
@@ -66,7 +66,7 @@ in
 
       programs.steam.theme = lib.mkIf stylixEnabled (lib.mkDefault pkgs.millenniumThemes.adwaita);
 
-      programs.steam.config = lib.mkMerge [
+      programs.steam.millennium-config = lib.mkMerge [
         {
           general = {
             checkForMillenniumUpdates = false;
@@ -110,8 +110,8 @@ in
     }
 
     {
-      xdg.configFile."millennium/config.json" = lib.mkIf (cfg.config != { }) {
-        source = jsonFormat.generate "config.json" cfg.config;
+      xdg.configFile."millennium/config.json" = lib.mkIf (cfg.millennium-config != { }) {
+        source = jsonFormat.generate "config.json" cfg.millennium-config;
         force = true;
       };
     }
